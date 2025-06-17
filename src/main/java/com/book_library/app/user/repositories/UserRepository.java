@@ -9,4 +9,6 @@ import com.book_library.app.user.entities.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>, JpaSpecificationExecutor<UserEntity> {
     public Optional<UserEntity> findByUsername(String username);
+    
+    public boolean existsByUsername(String username);
 }
