@@ -48,6 +48,9 @@ public class SecurityConfig implements WebMvcConfigurer {
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
+                    .requestMatchers(
+                       JwtAuthenticationFilter.EXCLUDED_ENDPOINTS.toArray(new String[0])
+                    ).permitAll()
                     .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(exception -> exception

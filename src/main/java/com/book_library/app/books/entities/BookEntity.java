@@ -45,8 +45,7 @@ public class BookEntity extends BaseEntity {
     @RequiredArgsConstructor
     public enum BookStatus {
         AVAILABLE("Available"),
-        CHECKED_OUT("Checked Out"),
-        RESERVED("Reserved");
+        BORROWED("Borrowed");
 
         private final String displayName;
     }

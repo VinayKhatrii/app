@@ -38,8 +38,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     );
     
 
-    private static final List<String> EXCLUDED_ENDPOINTS = List.of(
-
+    public static final List<String> EXCLUDED_ENDPOINTS = List.of(
+        "/api/v1/users/login",
+        "/api/v1/users/register",
+        "/api/v1/books"
     );
 
     private static final List<Pattern> EXCLUDED_PATTERNS = List.of(

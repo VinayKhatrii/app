@@ -2,7 +2,7 @@ package com.book_library.app.user.dtos;
 
 import java.util.List;
 
-import com.book_library.app.books.dtos.BookDTO;
+import com.book_library.app.books.dtos.BorrowedBookDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -16,6 +16,6 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private List<BookDTO> borrowedBooks;
+    private List<BorrowedBookDTO> borrowedBooks;
 
 }

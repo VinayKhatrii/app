@@ -1,5 +1,6 @@
 package com.book_library.app.user.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,29 @@ public class UserService {
         return userRepository.findAll().stream()
             .map(user -> modelMapper.map(user, UserDTO.class))
             .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public LocalDate getMembershipEndDate() {
+        String currentUsername = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity userEntity = userRepository.findByUsername(currentUsername)
+            .orElseThrow(() -> new RuntimeException("User not found with username: " + currentUsername));
+        return userEntity.getMembershipEndDate();
+    }
+
+    @Transactional
+    public LocalDate extendMembership(int months) {
+        String currentUsername = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        UserEntity userEntity = userRepository.findByUsername(currentUsername)
+            .orElseThrow(() -> new RuntimeException("User not found with username: " + currentUsername));
+
+        LocalDate newEndDate = userEntity.getMembershipEndDate() != null
+            ? userEntity.getMembershipEndDate().plusMonths(months)
+            : LocalDate.now().plusMonths(months);
+
+        userEntity.setMembershipEndDate(newEndDate);
+        userRepository.save(userEntity);
+        return newEndDate;
     }
 
     @Transactional(readOnly = true)
